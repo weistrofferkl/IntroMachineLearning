@@ -22,7 +22,16 @@ p = zeros(size(X, 1), 1);
 %
 
 
+%Input Layer:
+a1 = [ones(m,1),X];
 
+%Hidden Layer:
+a2 = [ones(m,1), sigmoid(a1*Theta1')];
+
+%Output Layer:
+a3 = sigmoid(a2*Theta2');
+[valA3, iA3] = max(a3');
+p = iA3';
 
 
 
