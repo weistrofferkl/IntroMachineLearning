@@ -30,10 +30,10 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
-
 h = sigmoid(X * all_theta');
 [v, index] = max(h');
+
+%Output Highest Probability:
 p = index'             
 
 
