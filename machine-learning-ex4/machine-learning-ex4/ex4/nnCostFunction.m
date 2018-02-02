@@ -66,19 +66,74 @@ Theta2_grad = zeros(size(Theta2));
 
 
 
+%Part 1:
+
+%Set up layers and h:
+inputLayer = [ones(m,1), X]; 
+neuronLayer1 = sigmoid(inputLayer * Theta1');
+neuronLayer1 = [ones(size(neuronLayer1, 1), 1), neuronLayer1];
+neuronLayer2 = sigmoid(neuronLayer1 * Theta2');
+h = neuronLayer2;
+
+
+%set up a 0-vector:
+tempVec = zeros(m,num_labels);
+
+%fill in accordingly per the instruction's implementation note:
+for i = 1:m
+  tempVec(i,y(i)) = 1;
+end
+
+
+%Compute base J:
+J = (1/m) * sum(sum(-1*tempVec .* log(h)-(1-tempVec) .*log(1-h)));
+
+
+%Regularize J:
+J = J + (lambda/(2*m)) * (sum(sum(Theta1(:,2:end).^2))+sum(sum(Theta2(:,2:end).^2)));
 
 
 
 
+%Parts 2 & 3:
 
+for t = 1:m
+  
+  %Step 1:
+  
+  %Set input layer:
+  inputLayer = [1; X(t,:)'];
+  
+  %Hidden/Neuron Layers:
+  z2 = Theta1*inputLayer;
+  neuronLayer1 = [1;sigmoid(z2)];
+  
+  z3 = Theta2*neuronLayer1;
+  neuronLayer2 = sigmoid(z3);
+  
+  
+  %Step 2 & 3 & 4:
+  
+  newy = ([1:num_labels] == y(t))';
+  
+  %compute deltas (for layers 2 and 3):
+  delta3 = neuronLayer2 - newy;
+  
+  delta2 = (Theta2' * delta3) .* [1; sigmoidGradient(z2)];
+  delta2 = delta2(2:end); %Knock off the bias!
+  
+  
+  
+  %Step 5:
+  
+  Theta1_grad = Theta1_grad + delta2*inputLayer';
+  Theta2_grad = Theta2_grad + delta3*neuronLayer1'; 
 
+end
 
-
-
-
-
-
-
+%Regularize the NN:
+Theta1_grad = (1/m) *Theta1_grad + (lambda/m) * [zeros(size(Theta1, 1), 1), Theta1(:,2:end)];
+Theta2_grad = (1/m) *Theta2_grad + (lambda/m) * [zeros(size(Theta2, 1), 1), Theta2(:,2:end)];
 
 % -------------------------------------------------------------
 
