@@ -40,6 +40,19 @@ error_val = zeros(length(lambda_vec), 1);
 %
 
 
+%Follow given loop set-up:
+for i = 1:length(lambda_vec)
+  lambda = lambda_vec(i);
+  
+  %Grab linear regression theta given lambda:
+  theta = trainLinearReg(X, y, lambda);
+  
+  %Store results in error_train and error_val:
+  error_train(i) = linearRegCostFunction(X, y, theta, 0);
+  error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+  
+end
+
 
 
 

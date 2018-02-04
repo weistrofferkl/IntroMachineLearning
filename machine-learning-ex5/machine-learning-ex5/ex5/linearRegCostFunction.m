@@ -20,7 +20,15 @@ grad = zeros(size(theta));
 %
 
 
+%Compute J-Cost given formula in the assignment:
+J = (1/(2*m)) * sum(power((X*theta - y), 2)) + (lambda/(2*m)) * sum(power(theta(2:end), 2));
 
+%Using a temporary variable to make life cleaner:
+temp = (lambda/m) .* theta;
+temp(1) = 0; %Don't care about the first paramenter here!
+
+%Update the gradient:
+grad = ((1/m) .* X' * (X*theta - y)) + temp;
 
 
 

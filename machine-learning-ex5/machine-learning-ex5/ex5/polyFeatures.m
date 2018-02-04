@@ -15,9 +15,20 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
+m = size(X,1);
 
-
-
+%Loop through vector X:
+for i = 1:m
+  
+  
+  tempPoly = zeros(p,1);
+  %Take care of the p-th powers:
+  for j = 1:p
+    tempPoly(j) = X(i).^j;
+  end
+  
+  X_poly(i,:) = tempPoly;
+end
 
 
 % =========================================================================
