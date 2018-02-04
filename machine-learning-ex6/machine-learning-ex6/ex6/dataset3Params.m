@@ -23,11 +23,30 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+vals = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+output = [];
+lengthVals = length(vals);
 
 
+for m = 1:lengthVals,
+  for sigma = 1:lengthVals,
+    
+    tempC = vals(m);
+    tempSig = vals(sigma);
+    
+    tMod = svmTrain(X, y, tempC, @(x1, x2)gaussianKernel(x1, x2, tempSig));
+    preds = svmPredict(tMod, Xval);
+    
+    tError = mean(double(preds ~= yval));
+    output = [output; tempC, tempSig, tError];
+    
+  end
+end
 
+[mError, mI] = min(output(:,3));
 
-
+C = output(mI, 1);
+sigma = output(mI, 2);
 
 % =========================================================================
 
