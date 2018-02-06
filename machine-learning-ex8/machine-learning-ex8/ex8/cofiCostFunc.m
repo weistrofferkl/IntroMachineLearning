@@ -42,9 +42,16 @@ Theta_grad = zeros(size(Theta));
 
 
 
+%Set up the initial values for J:
+temp = (X*Theta'-Y).^2;
+
+%Compute the filtering cost function (with regularization):
+J = sum(sum(temp(R==1)))/2 + (lambda/2).*sum(sum(Theta.^2)) + (lambda/2).*sum(sum(X.^2));
 
 
-
+%Compute the gradients (with regularization):
+X_grad = ((X * Theta' - Y).*R) * Theta + lambda.*X;
+Theta_grad = ((X * Theta' - Y).*R)' * X + lambda.*Theta;
 
 
 

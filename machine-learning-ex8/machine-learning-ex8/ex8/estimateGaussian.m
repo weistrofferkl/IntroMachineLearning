@@ -21,7 +21,13 @@ sigma2 = zeros(n, 1);
 %               should contain variance of the i-th feature.
 %
 
+%Set the mean:
+mu = (1/m) * sum(X);
 
+%Set the Variance:
+sigma2 = var(X, 1, 1);
+%Can use built-in var() function, or the formula:
+% sigma2 = (1/m) * sum((X - repmat(mu, m, 1)).^2);
 
 
 
