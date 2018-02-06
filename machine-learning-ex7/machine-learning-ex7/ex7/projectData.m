@@ -18,8 +18,21 @@ Z = zeros(size(X, 1), K);
 %                    projection_k = x' * U(:, k);
 %
 
+sizeM = length(X);
 
-
+for i = 1:sizeM,
+  
+  %Loop through top K eigenvectors in U:
+  for j = 1:K
+    
+    %Use given formulas:
+    x = X(i, :)';
+    projection_k = x' * U(:,j);
+    
+    %Update return vector:
+    Z(i,j) = projection_k;
+  end
+end
 
 % =============================================================
 

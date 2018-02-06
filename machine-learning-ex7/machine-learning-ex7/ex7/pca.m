@@ -21,7 +21,11 @@ S = zeros(n);
 %
 
 
+%Set sigma value using covariance matrix formula in the assignment:
+sig = (1/m) * X' * X;
 
+%Run SVD to compute the principal components:
+[U, S, V] = svd(sig);
 
 
 

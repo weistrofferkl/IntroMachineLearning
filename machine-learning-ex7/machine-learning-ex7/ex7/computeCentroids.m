@@ -27,8 +27,14 @@ centroids = zeros(K, n);
 %
 
 
+%Loop through centroids:
 
-
+for i = 1:K,
+  
+  %Use formula given in assignment:
+  centroids(i, :) = (1/length(find(idx == i))) * sum(X(find(idx == i),:));
+  
+end
 
 
 

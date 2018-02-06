@@ -21,7 +21,23 @@ X_rec = zeros(size(Z, 1), size(U, 1));
 %               Notice that U(j, 1:K) is a row vector.
 %               
 
+zSize = size(Z,1);
+uSize = size(U,1);
 
+%Loop through Z:
+for i = 1:zSize,
+  
+  %Loop through the K-eigenvectors in U:
+  for j = 1:uSize,
+    
+    %Use given formulas:
+    v = Z(i,:)';
+    recovered_j = v' * U(j, 1:K)';
+    
+    %Update return vector:
+    X_rec(i,j) = recovered_j;
+  end
+end
 
 % =============================================================
 

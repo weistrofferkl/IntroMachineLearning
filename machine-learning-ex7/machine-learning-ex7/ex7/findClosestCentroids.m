@@ -22,6 +22,26 @@ idx = zeros(size(X,1), 1);
 %
 
 
+sizeM = size(X,1)
+
+for i = 1:sizeM,
+  
+  %Used to keep the distances:
+  dist = zeros(size(centroids, 1), 1);
+  
+  %Loop through range:
+  for j = 1:K,
+    
+    %Grab the distance:
+    dist(j) = sum(sum(power( (X(i,:)- centroids(j, :)),2)));
+  end
+  
+  %Take the smallest distance for i:
+  [dis, dis_idx] = min(dist);
+  idx(i,1) = dis_idx;
+  
+end
+
 
 
 
